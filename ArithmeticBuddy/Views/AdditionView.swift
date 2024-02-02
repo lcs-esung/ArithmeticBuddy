@@ -14,6 +14,7 @@ struct AdditionView: View {
     // The two numbers the user must add
     @State var firstNumber = Int.random(in: 1...25)
     @State var secondNumber = Int.random(in: 1...25)
+    @State var guessedInput = ""
     
     // MARK: Computed properties
     
@@ -52,9 +53,10 @@ struct AdditionView: View {
             
             HStack {
                 Spacer()
-                Rectangle()
-                    .frame(width: 100, height: 50)
-                    .padding()
+                TextField("Enter the sum", text: $guessedInput)
+                    .multilineTextAlignment(.trailing)
+                    .font(Font.system(size: 50))
+                    .padding(.trailing)
             }
             
             Spacer()
@@ -95,6 +97,24 @@ struct AdditionView: View {
     // Check whether the user's answer was correct
     // Provide appropriate feedback
     func checkAnswer() {
+        
+        // Attempt to unwrap the input provided by the user
+        guard let selectedNumber = Int(guessedInput) else {
+            feedback = "Please provide an integer."
+            return
+        }
+        
+        // Provide feedback to the user
+        // When should they guess higher?
+        // When should then guess lower?
+        // FILL IN THIS CODE
+        if selectedNumber > correctSum {
+            feedback = "Try Again"
+        } else if selectedNumber < correctSum {
+            feedback = "Try Again"
+        } else {
+            feedback = "You Got It!"
+        }
         
     }
     
